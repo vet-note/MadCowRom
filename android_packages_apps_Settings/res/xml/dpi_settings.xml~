@@ -17,8 +17,11 @@
 
 <EditTextPreference
 android:key="custom_dpi_text"
+android:dialogTitle="@string/system_dpi_custom_title"
+android:hint="@string/system_dpi_custom_hint"
 android:title="@string/system_dpi_custom_title"
-android:summary="@string/system_dpi_custom_summary" />
+android:summary="@string/system_dpi_custom_summary"
+android:inputType="number" />
 
     </PreferenceCategory>
 

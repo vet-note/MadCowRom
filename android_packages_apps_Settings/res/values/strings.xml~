@@ -5232,7 +5232,7 @@
     <string name="system_dpi_standar_title">Standard density</string>
     <string name="system_dpi_standar_summary">Select the density from a list</string>
     <string name="system_dpi_custom_title">Specify custom density</string>
-    <string name="system_dpi_custom_hint">160 to 320</string>
+    <string name="system_dpi_custom_hint">120 to 480</string>
     <string name="system_dpi_custom_summary">Select a custom density from 120 to 480</string>
 
     <string name="dpi_groups_title">DPI Groups</string>

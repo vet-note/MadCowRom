@@ -40,7 +40,7 @@ public class DpiPreferences extends SettingsPreferenceFragment implements
 
         String prop = ExtendedPropertiesUtils.getProperty("android.dpi",
                 ExtendedPropertiesUtils
-                        .getProperty(ExtendedPropertiesUtils.VETNOTE_PREFIX
+                        .getProperty(ExtendedPropertiesUtils.BEERBONG_PREFIX
                                 + "rom_default_dpi"));
 
         mDpiWindow = (ListPreference) prefSet.findPreference(DPI_PREF);
@@ -58,7 +58,7 @@ public class DpiPreferences extends SettingsPreferenceFragment implements
         if (preference == mCustomDpi) {
             String prop = ExtendedPropertiesUtils.getProperty("android.dpi",
                     ExtendedPropertiesUtils
-                    .getProperty(ExtendedPropertiesUtils.VETNOTE_PREFIX
+                    .getProperty(ExtendedPropertiesUtils.BEERBONG_PREFIX
                             + "rom_default_dpi"));
             mCustomDpi.getEditText().setText(prop);
             mCustomDpi.getEditText().setSelection(prop.length());

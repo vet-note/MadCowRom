@@ -42,9 +42,9 @@ public class Applications {
 
     private static final String BACKUP = "/data/data/com.android.settings/files/properties.conf";
 
-    private static final String APPEND_CMD = "echo \"%s=%s\" >> /system/etc/Vetnote/properties.conf";
-    private static final String REPLACE_CMD = "busybox sed -i \"/%s/ c %<s=%s\" /system/etc/Vetnote/properties.conf";
-    private static final String PROP_EXISTS_CMD = "grep -q %s /system/etc/Vetnote/properties.conf";
+    private static final String APPEND_CMD = "echo \"%s=%s\" >> /system/etc/vetnote/properties.conf";
+    private static final String REPLACE_CMD = "busybox sed -i \"/%s/ c %<s=%s\" /system/etc/vetnote/properties.conf";
+    private static final String PROP_EXISTS_CMD = "grep -q %s /system/etc/vetnote/properties.conf";
     private static final String REMOUNT_CMD = "busybox mount -o %s,remount -t yaffs2 /dev/block/mtdblock1 /system";
 
     private static final CMDProcessor cmd = new CMDProcessor();

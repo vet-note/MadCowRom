@@ -18,12 +18,12 @@
             android:title="@string/system_dpi_title"
             android:summary="@string/system_dpi_summary" />
 
-        <PreferenceScreen
+       <PreferenceScreen
             android:key="dpi_groups"
             android:fragment="com.android.settings.vetnote.DpiGroups"
             android:title="@string/dpi_groups_title"
             android:summary="@string/dpi_groups_summary" />
 
-    </PreferenceCategory>
+       </PreferenceCategory>
 
 </PreferenceScreen>

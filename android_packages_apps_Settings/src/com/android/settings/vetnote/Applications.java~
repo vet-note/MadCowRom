@@ -17,13 +17,14 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.UserHandle;
+import android.util.ExtendedPropertiesUtils;
 import android.widget.Toast;
 
 import com.android.settings.R;
 
 public class Applications {
 
-    public static class vetnoteAppInfo {
+    public static class VetnoteAppInfo {
 
         public String name = "";
         public String pack = "";
@@ -32,30 +33,30 @@ public class Applications {
         public int dpi;
     }
 
-    private static class AppComparator implements Comparator<vetnoteAppInfo> {
+    private static class AppComparator implements Comparator<VetnoteAppInfo> {
 
-        public int compare(vetnoteAppInfo a1, vetnoteAppInfo a2) {
+        public int compare(VetnoteAppInfo a1, VetnoteAppInfo a2) {
             return a1.name.compareTo(a2.name);
         }
     }
 
     private static final String BACKUP = "/data/data/com.android.settings/files/properties.conf";
 
-    private static final String APPEND_CMD = "echo \"%s=%s\" >> /system/etc/vetnote/properties.conf";
-    private static final String REPLACE_CMD = "busybox sed -i \"/%s/ c %<s=%s\" /system/etc/vetnote/properties.conf";
-    private static final String PROP_EXISTS_CMD = "grep -q %s /system/etc/vetnote/properties.conf";
+    private static final String APPEND_CMD = "echo \"%s=%s\" >> /system/etc/Vetnote/properties.conf";
+    private static final String REPLACE_CMD = "busybox sed -i \"/%s/ c %<s=%s\" /system/etc/Vetnote/properties.conf";
+    private static final String PROP_EXISTS_CMD = "grep -q %s /system/etc/Vetnote/properties.conf";
     private static final String REMOUNT_CMD = "busybox mount -o %s,remount -t yaffs2 /dev/block/mtdblock1 /system";
 
     private static final CMDProcessor cmd = new CMDProcessor();
 
-    private static List<vetnoteAppInfo> appList = new ArrayList<vetnoteAppInfo>();
+    private static List<VetnoteAppInfo> appList = new ArrayList<VetnoteAppInfo>();
     private static int mLastDpi = 0;
 
     public static void addApplication(Context mContext, String packageName) {
         addApplication(mContext, findAppInfo(mContext, packageName), mLastDpi);
     }
 
-    public static void addApplication(Context mContext, vetnoteAppInfo app, int dpi) {
+    public static void addApplication(Context mContext, VetnoteAppInfo app, int dpi) {
 
         if (!mount("rw")) {
             throw new RuntimeException("Could not remount /system rw");
@@ -152,7 +153,7 @@ public class Applications {
         checkAutoBackup(mContext);
     }
 
-    public static vetnoteAppInfo[] getApplicationList(Context mContext, int dpi) {
+    public static VetnoteAppInfo[] getApplicationList(Context mContext, int dpi) {
 
         mLastDpi = dpi;
 
@@ -167,14 +168,14 @@ public class Applications {
 
         String sdpi = String.valueOf(dpi);
 
-        List<vetnoteAppInfo> items = new ArrayList<vetnoteAppInfo>();
+        List<VetnoteAppInfo> items = new ArrayList<VetnoteAppInfo>();
 
         Iterator it = properties.keySet().iterator();
         while (it.hasNext()) {
             String packageName = (String) it.next();
             String currentdpi = properties.getProperty(packageName);
             if (packageName.endsWith(".dpi") && sdpi.equals(currentdpi)) {
-                vetnoteAppInfo bAppInfo = findAppInfo(mContext, packageName);
+                VetnoteAppInfo bAppInfo = findAppInfo(mContext, packageName);
 
                 if (bAppInfo == null) {
                     removeApplication(mContext, packageName.substring(0, packageName.lastIndexOf(".dpi")));
@@ -186,10 +187,10 @@ public class Applications {
 
         Collections.sort(items, new AppComparator());
 
-        return items.toArray(new vetnoteAppInfo[items.size()]);
+        return items.toArray(new VetnoteAppInfo[items.size()]);
     }
 
-    public static vetnoteAppInfo[] getApplicationList(Context mContext) {
+    public static VetnoteAppInfo[] getApplicationList(Context mContext) {
 
         Properties properties = null;
 
@@ -203,13 +204,13 @@ public class Applications {
         PackageManager pm = mContext.getPackageManager();
 
         List<ApplicationInfo> mPackageList = pm.getInstalledApplications(0);
-        vetnoteAppInfo[] items = new vetnoteAppInfo[mPackageList == null ? 0 : mPackageList.size()];
+        VetnoteAppInfo[] items = new VetnoteAppInfo[mPackageList == null ? 0 : mPackageList.size()];
 
         appList.clear();
 
         for (int i = 0; mPackageList != null && i < mPackageList.size(); i++) {
             ApplicationInfo app = mPackageList.get(i);
-            items[i] = new vetnoteAppInfo();
+            items[i] = new VetnoteAppInfo();
             items[i].name = (String) pm.getApplicationLabel(app);
             items[i].icon = pm.getApplicationIcon(app);
             items[i].pack = app.packageName;
@@ -263,7 +264,7 @@ public class Applications {
         return cmd.su.runWaitFor(String.format(PROP_EXISTS_CMD, prop)).success();
     }
 
-    private static vetnoteAppInfo findAppInfo(Context mContext, String packageName) {
+    private static VetnoteAppInfo findAppInfo(Context mContext, String packageName) {
         if (packageName.endsWith(".dpi")) {
             packageName = packageName.substring(0, packageName.lastIndexOf(".dpi"));
         }
@@ -271,7 +272,7 @@ public class Applications {
             getApplicationList(mContext);
         }
         for (int i = 0; i < appList.size(); i++) {
-            vetnoteAppInfo app = appList.get(i);
+            VetnoteAppInfo app = appList.get(i);
             if (app.pack.equals(packageName))
                 return app;
         }

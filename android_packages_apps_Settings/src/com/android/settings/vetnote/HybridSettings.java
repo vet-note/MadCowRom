@@ -63,7 +63,7 @@ public class HybridSettings extends SettingsPreferenceFragment implements
     private void updateDensityTextSummary() {
         String prop = ExtendedPropertiesUtils.getProperty("android.dpi",
                 ExtendedPropertiesUtils
-                        .getProperty(ExtendedPropertiesUtils.BEERBONG_PREFIX
+                        .getProperty(ExtendedPropertiesUtils.VETNOTE_PREFIX
                                 + "rom_default_dpi"));
         mDpiScreen.setSummary(getResources().getString(
                 R.string.system_dpi_summary)
