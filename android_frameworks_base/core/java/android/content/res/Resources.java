@@ -120,8 +120,8 @@ public class Resources extends ExtendedPropertiesUtils {
     private CompatibilityInfo mCompatibilityInfo;
 
     /**
-* Override current object with temp properties stored in enum interface
-*/
+    * Override current object with temp properties stored in enum interface
+    */
    public void paranoidHook() {
        mConfiguration.active = true;
        mConfiguration.overrideHook(this, OverrideMode.ExtendedProperties);
